@@ -232,11 +232,13 @@ body {
     line-height: 1.8;
     color: rgba(255, 255, 255, 0.85);
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+    margin-bottom: 20px;
+    font-family: var(--font-romantic);
 }
 
-.love-text p {
-    margin-top: 15px;
-    font-family: var(--font-romantic);
+.second-text {
+    margin-top: 25px;
     font-size: 17px;
     color: #ffb7c5;
     font-style: italic;
