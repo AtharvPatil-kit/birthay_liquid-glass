@@ -312,7 +312,7 @@ function triggerCelebration() {
 
     const instruct = document.querySelector(".cake-instruction");
     if (instruct) {
-        instruct.innerHTML = "Yay! Happy Birthday Pillu! 🎂🎉💝";
+        instruct.innerHTML = "Happy Birthday mazhi Babadi... 🎂🎉💝";
         instruct.style.fontSize = "16px";
         instruct.style.fontWeight = "600";
         instruct.style.color = "var(--primary-pink)";
