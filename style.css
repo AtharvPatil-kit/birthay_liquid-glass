@@ -1,0 +1,905 @@
+/* ==========================================
+   THEME VARIABLES & IMPORT FONTS
+   ========================================== */
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+:root {
+    --primary-pink: #ff1493;
+    --primary-magenta: #e0115f;
+    --neon-pink: #ff69b4;
+    --neon-purple: #9d4edd;
+    --glass-background: rgba(255, 255, 255, 0.06);
+    --glass-border-light: rgba(255, 255, 255, 0.22);
+    --glass-border-heavy: rgba(255, 255, 255, 0.55);
+    --font-stack: 'SF Pro Display', -apple-system, BlinkMacSystemFont, "SF Pro", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-heading: 'Great Vibes', cursive;
+    --font-sans: var(--font-stack);
+    --font-romantic: var(--font-stack);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: #ffffff;
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background: #0f020f;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================
+   DYNAMIC MESH BACKGROUND
+   ========================================== */
+.bg-blobs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #23021e 0%, #060006 100%);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.55;
+    animation: floatBlobs 24s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--primary-pink) 0%, rgba(255,20,147,0) 70%);
+    left: -15%;
+    top: -15%;
+    animation-duration: 25s;
+}
+
+.blob-2 {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--neon-purple) 0%, rgba(157,78,221,0) 70%);
+    right: -15%;
+    bottom: -15%;
+    animation-duration: 35s;
+    animation-delay: -5s;
+}
+
+.blob-3 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ff85a2 0%, rgba(255,133,162,0) 70%);
+    left: 35%;
+    top: 35%;
+    animation-duration: 20s;
+    animation-delay: -10s;
+}
+
+.blob-4 {
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, var(--primary-magenta) 0%, rgba(224,17,95,0) 70%);
+    right: 20%;
+    top: -20%;
+    animation-duration: 28s;
+    animation-delay: -15s;
+}
+
+@keyframes floatBlobs {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(50px, -70px) scale(1.15);
+    }
+    66% {
+        transform: translate(-40px, 40px) scale(0.9);
+    }
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+}
+
+/* ==========================================
+   INTERACTIVE CANVAS PARTICLES
+   ========================================== */
+#canvas-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    display: block;
+}
+
+/* ==========================================
+   SINGLE PAGE VIEW SYSTEM & TRANSITIONS
+   ========================================== */
+.app-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 30px 15px;
+    z-index: 1;
+}
+
+/* Align contents to the top on the surprise page to fix the mobile flexbox bottom height scroll bug */
+.app-wrapper.surprise-active {
+    align-items: flex-start;
+    padding-top: 15px;
+    padding-bottom: 50px;
+}
+
+.view-section {
+    display: none;
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+}
+
+.view-section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ==========================================
+   LIQUID GLASS CARDS
+   ========================================== */
+.container,
+.content {
+    width: 100%;
+    max-width: 530px;
+    margin: 20px auto;
+    padding: 45px 35px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.container:hover,
+.content:hover {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* ==========================================
+   TYPOGRAPHY
+   ========================================== */
+.title {
+    font-family: var(--font-heading);
+    font-size: 58px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff 10%, #ffb7c5 50%, var(--neon-pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #ffb7c5;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.message {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 15px;
+    font-weight: 400;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.birthday {
+    font-family: var(--font-heading);
+    font-size: 54px;
+    background: linear-gradient(135deg, #ffffff 20%, var(--neon-pink) 60%, #ffa6b7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.love-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.love-text p {
+    margin-top: 15px;
+    font-family: var(--font-romantic);
+    font-size: 17px;
+    color: #ffb7c5;
+    font-style: italic;
+}
+
+.memory {
+    margin-top: 45px;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ffffff;
+    border-bottom: 2px solid rgba(255, 117, 195, 0.35);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* ==========================================
+   LATEST LIQUID GOOEY GLASS BUTTON
+   ========================================== */
+.btn {
+    position: relative;
+    margin-top: 30px;
+    padding: 16px 42px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 15px 35px 0 rgba(0, 0, 0, 0.25),
+                inset 0 4px 12px rgba(255, 255, 255, 0.35),
+                inset 0 -4px 12px rgba(0, 0, 0, 0.15),
+                0 0 25px rgba(255, 20, 147, 0.25);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    z-index: 1;
+}
+
+/* Diagonal shiny glaze reflection */
+.btn::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 8%;
+    width: 84%;
+    height: 40%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    border-radius: 30px / 50% 50% 0 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 3;
+}
+
+/* Liquid gooey container */
+.btn-liquid-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background: linear-gradient(135deg, var(--primary-pink), var(--neon-purple));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: url('#gooey');
+}
+
+.btn-bubble {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: #ff75c3;
+    border-radius: 50%;
+    top: 130%;
+    transform: translate(-50%, -50%);
+    transition: top 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-bubble:nth-child(1) { left: 20%; width: 85px; height: 85px; transition-delay: 0s; }
+.btn-bubble:nth-child(2) { left: 50%; width: 65px; height: 65px; transition-delay: 0.05s; }
+.btn-bubble:nth-child(3) { left: 80%; width: 95px; height: 95px; transition-delay: 0.1s; }
+
+.btn:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.6),
+                inset 0 4px 10px rgba(255, 255, 255, 0.45),
+                0 0 30px rgba(255, 20, 147, 0.35);
+}
+
+.btn:hover .btn-liquid-bg {
+    opacity: 1;
+}
+
+.btn:hover .btn-bubble {
+    top: 50%;
+}
+
+/* ==========================================
+   VIRTUAL BIRTHDAY CAKE SECTION
+   ========================================== */
+.cake-wrapper {
+    margin-top: 30px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cake-container {
+    position: relative;
+    width: 260px;
+    height: 210px;
+    margin: 35px auto 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cake-instruction {
+    font-size: 14px;
+    color: #ffb7c5;
+    margin-top: 20px;
+    font-style: italic;
+    letter-spacing: 0.5px;
+    animation: pulseText 1.6s infinite alternate ease-in-out;
+}
+
+@keyframes pulseText {
+    from { opacity: 0.5; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1.03); }
+}
+
+.plate {
+    width: 250px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50% / 10px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+.cake {
+    position: relative;
+    width: 190px;
+    height: 105px;
+    background: linear-gradient(135deg, #ff5cbb, #ee31a5);
+    border-radius: 40px 40px 10px 10px / 12px 12px 10px 10px;
+    box-shadow: inset 0 -15px 0 #9d0c80, 
+                0 10px 25px rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+/* Cream stripe */
+.cake::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 14px;
+    background: #ffffff;
+    top: 40%;
+    opacity: 0.9;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cake::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    background: #ffb7c5;
+    top: 47%;
+    opacity: 0.8;
+}
+
+/* Dripping Icing */
+.icing {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 25px;
+    background: #ffffff;
+    border-radius: 40px 40px 0 0 / 12px 12px 0 0;
+}
+
+.drips {
+    position: absolute;
+    top: 18px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 15px;
+}
+
+.drip {
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.drip:nth-child(2) {
+    height: 24px;
+    border-radius: 0 0 10px 10px;
+}
+
+.drip:nth-child(3) {
+    height: 18px;
+    border-radius: 0 0 8px 8px;
+}
+
+.drip:nth-child(4) {
+    height: 22px;
+    border-radius: 0 0 9px 9px;
+}
+
+/* Candles */
+.candles {
+    position: absolute;
+    bottom: 110px;
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+}
+
+.candle {
+    width: 10px;
+    height: 52px;
+    background: linear-gradient(to right, #00f0ff, #0077ff);
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.candle:hover {
+    transform: scale(1.15) translateY(-3px);
+}
+
+.candle:nth-child(2) {
+    background: linear-gradient(to right, #ffef00, #ff8100);
+}
+
+.candle:nth-child(3) {
+    background: linear-gradient(to right, #00ff66, #009933);
+}
+
+.candle::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 4px;
+    width: 2px;
+    height: 6px;
+    background: #333;
+}
+
+/* Flame animation */
+.flame {
+    width: 14px;
+    height: 25px;
+    background: radial-gradient(circle at bottom, #ffef00 15%, #ff5e00 65%, rgba(255, 94, 0, 0) 100%);
+    border-radius: 50% 50% 20% 20%;
+    position: absolute;
+    top: -29px;
+    left: -2px;
+    box-shadow: 0 0 15px #ff5e00, 0 0 25px rgba(255, 239, 0, 0.6);
+    animation: flicker 0.18s infinite alternate ease-in-out;
+    transform-origin: center bottom;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+@keyframes flicker {
+    0% { transform: scale(1) rotate(-2deg); }
+    100% { transform: scale(1.15) rotate(2deg); }
+}
+
+.candle.extinguished {
+    cursor: default;
+}
+
+.candle.extinguished .flame {
+    opacity: 0;
+    transform: scale(0) translateY(12px);
+    pointer-events: none;
+}
+
+/* ==========================================
+   MEMORY SECTION LOCK & FADE
+   ========================================== */
+.gallery-section {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                max-height 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+                margin-top 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 0;
+}
+
+.gallery-section.unlocked {
+    opacity: 1;
+    max-height: 2200px;
+    overflow: visible;
+    margin-top: 25px;
+}
+
+/* ==========================================
+   LIQUID FROSTED GLASS POLAROIDS
+   ========================================== */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-top: 30px;
+    padding: 15px 5px;
+}
+
+/* Frosted glass polaroid card */
+.photo-frame.polaroid {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(200%) contrast(95%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%) contrast(95%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.55);
+    padding: 14px 14px 44px 14px;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 
+                inset 0 4px 10px rgba(255, 255, 255, 0.35),
+                inset 0 -4px 10px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.4s ease,
+                border-color 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shiny sweep gloss overlay */
+.photo-frame.polaroid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 300%;
+    height: 100%;
+    background: linear-gradient(105deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0) 70%);
+    z-index: 3;
+    pointer-events: none;
+    transition: none;
+}
+
+.photo-frame.polaroid:hover::before {
+    left: 150%;
+    transition: left 1.2s ease-in-out;
+}
+
+/* Polaroid bottom centered emoji */
+.photo-frame.polaroid::after {
+    content: '💝';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 4px rgba(255,20,147,0.5));
+}
+
+.photo-frame.polaroid img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: block;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.photo-frame.polaroid:hover {
+    transform: scale(1.08) rotate(0deg) translateY(-12px) !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), 0 5px 25px rgba(255, 20, 147, 0.35);
+    border-color: rgba(255, 255, 255, 0.4);
+    z-index: 10;
+}
+
+.photo-frame.polaroid:hover::after {
+    transform: translateX(-50%) scale(1.4);
+}
+
+/* Grids */
+@media (min-width: 600px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (min-width: 900px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+    .content {
+        max-width: 900px;
+    }
+}
+
+/* ==========================================
+   GLASSMORPHIC PHOTO LIGHTBOX
+   ========================================== */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 1, 10, 0.88);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.lightbox.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 16px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+    border: 4px solid rgba(255,255,255,0.7);
+}
+
+.lightbox.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    font-size: 26px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: all 0.3s;
+}
+
+.lightbox-close:hover {
+    background: var(--primary-pink);
+    border-color: var(--neon-pink);
+    transform: rotate(90deg) scale(1.05);
+}
+
+/* ==========================================
+   FLOATING MUSIC CONTROLLER
+   ========================================== */
+.music-control-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.45);
+    border-left: 1.5px solid rgba(255, 255, 255, 0.45);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1.5px 3px rgba(255, 255, 255, 0.35),
+                inset 0 -1.5px 3px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+}
+
+.music-control-btn:hover {
+    transform: scale(1.12) translateY(-4px);
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 15px 35px rgba(255, 20, 147, 0.35);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Equalizer waves inside button */
+.music-waves {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 20px;
+    height: 18px;
+}
+
+.music-wave-bar {
+    width: 3px;
+    height: 100%;
+    background-color: white;
+    border-radius: 2px;
+    transform-origin: bottom;
+    animation: wave-bounce 1.2s ease-in-out infinite alternate;
+    animation-play-state: paused;
+}
+
+.music-wave-bar:nth-child(1) { animation-delay: 0.1s; animation-duration: 0.8s; }
+.music-wave-bar:nth-child(2) { animation-delay: 0.4s; animation-duration: 1.4s; }
+.music-wave-bar:nth-child(3) { animation-delay: 0.0s; animation-duration: 1.0s; }
+.music-wave-bar:nth-child(4) { animation-delay: 0.6s; animation-duration: 1.2s; }
+
+.music-playing .music-wave-bar {
+    animation-play-state: running;
+}
+
+@keyframes wave-bounce {
+    0% { transform: scaleY(0.18); }
+    100% { transform: scaleY(1.0); }
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT ADJUSTMENTS
+   ========================================== */
+@media (max-width: 480px) {
+    .container,
+    .content {
+        padding: 25px 18px;
+        margin: 10px auto;
+        border-radius: 22px;
+    }
+    .title {
+        font-size: 34px;
+        margin-bottom: 8px;
+    }
+    .subtitle {
+        font-size: 16px;
+        margin-bottom: 14px;
+        letter-spacing: 1.5px;
+    }
+    .message {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+    .birthday {
+        font-size: 32px;
+        margin-bottom: 10px;
+    }
+    .love-text {
+        font-size: 13.5px;
+        line-height: 1.6;
+    }
+    .love-text p {
+        font-size: 14.5px;
+        margin-top: 10px;
+    }
+    .btn {
+        margin-top: 18px;
+        padding: 12px 30px;
+        font-size: 13px;
+    }
+    .btn:active {
+        transform: scale(0.95) translateY(0) !important;
+    }
+    .cake-container {
+        transform: scale(0.78);
+        margin: 10px auto 0 auto;
+        height: 180px;
+    }
+    .cake-instruction {
+        font-size: 12.5px;
+        margin-top: 10px;
+    }
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 10px 0;
+    }
+    .photo-frame.polaroid {
+        padding: 8px 8px 26px 8px;
+        border-radius: 12px;
+    }
+    .photo-frame.polaroid::after {
+        font-size: 13px;
+        bottom: 6px;
+    }
+    .photo-frame.polaroid:active {
+        transform: scale(0.96) rotate(0deg) !important;
+    }
+    .music-control-btn {
+        bottom: 15px;
+        right: 15px;
+        width: 46px;
+        height: 46px;
+    }
+    .music-waves {
+        width: 16px;
+        height: 14px;
+    }
+    .music-wave-bar {
+        width: 2.5px;
+    }
+    .app-wrapper.surprise-active {
+        padding-top: 10px;
+        padding-bottom: 60px; /* Space so last item doesn't get covered by music button */
+    }
+}
+
+@media (min-width: 600px) {
+    .title {
+        font-size: 68px;
+    }
+    .birthday {
+        font-size: 60px;
+    }
+    .container {
+        padding: 55px 45px;
+    }
+    .content {
+        padding: 55px 45px;
+    }
+}
